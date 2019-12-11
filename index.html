@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="./style/main.css">
+    <title>To Do List</title>
+</head>
+<body>
+
+<!--Top header -->
+<header class="top-container">
+    <h2>To Do List</h2>
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Item...">
+        <button class="btn" onclick="addItem()">Add</button>
+    </div>
+</header>
+      
+<!-- Section of items to do -->
+<section id="parentList">
+    <h3>My list</h3>
+    <div class="grid-container">
+        <div class="item1">&#10003</div>
+        <div class="item2">Dishes</div>
+        <div class="item3">&#10005</div>  
+    </div>
+</section>
+<!--Footer-->
+<footer>
+    <p>Code and Designed by Rachel H</p>
+</footer>
+
+<!--JS -->  
+<script>
+
+//obj to DOM
+const obj = {
+    userInput: document.getElementById('userInput'),
+    parentList: document.getElementById('parentList')
+}
+
+function addItem() {
+   const item = obj.userInput.value;
+    //if user input is empty
+    if (item === "") {
+        alert("Can't leave blank :)");
+    }  else {
+        const itemList = obj.parentList;
+        const markup = `
+            <div class="grid-container">
+                <div class="item1">&#10003</div>
+                <div class="item2">${item}</div>
+                <div class="item3">&#10005</div>  
+            </div>`
+            ;
+        itemList.insertAdjacentHTML('beforeend', markup);
+        //clear the input data
+        obj.userInput.value = "";
+    }
+};
+
+// add event listener if user clicks check or remove icon
+obj.parentList.addEventListener('click', (e) => { 
+    //remove icon
+   if (e.target && e.target.matches('.item3')){
+    e.target.parentNode.remove();
+    //checked icon
+   } else if (e.target && e.target.matches('.item1')){
+       e.target.parentNode.classList.toggle('checked')    
+   }
+});
+</script>
+</body>
+</html>
